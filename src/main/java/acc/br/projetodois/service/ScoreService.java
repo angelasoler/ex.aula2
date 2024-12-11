@@ -1,20 +1,16 @@
-package acc.br.projetodois;
+package acc.br.projetodois.service;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 
-@Controller
-public class WebController {
+import acc.br.projetodois.model.Score;
+import acc.br.projetodois.repository.ScoreRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ScoreService {
     @Autowired
     public ScoreRepository scoreRepo;
 
-    @ResponseBody
-    @PostMapping("/score/reset")
     public Score resetScore() {
         Score score = getScore();
         score.resetScore();
@@ -22,8 +18,6 @@ public class WebController {
         return score;
     }
 
-    @ResponseBody
-    @GetMapping("/score")
     public Score getScore() {
         Score score;
         try {
@@ -36,12 +30,11 @@ public class WebController {
         return score;
     }
 
-    @GetMapping("/teste")
-    public String teste(@RequestParam(name="escolha") String aEscolha, Model model) {
+    public String processarEscolha(String escolha) {
         String saida;
         Score score = this.getScore();
 
-        switch(aEscolha.toLowerCase()) {
+        switch(escolha.toLowerCase()) {
             case "papel":
                 saida = "ganhou";
                 score.setVitorias(score.getVitorias() + 1);
@@ -55,12 +48,8 @@ public class WebController {
                 score.setEmpates(score.getEmpates() + 1);
                 break;
         }
-
         scoreRepo.save(score);
-
-        model.addAttribute("saida", saida);
-        model.addAttribute("aEscolha", aEscolha);
-        model.addAttribute("score", score);
-        return "resultado";
+        return saida;
     }
+
 }

@@ -1,4 +1,4 @@
-package acc.br.projetodois;
+package acc.br.projetodois.model;
 import org.springframework.data.annotation.Id;
 
 public class Score {

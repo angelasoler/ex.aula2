@@ -19,14 +19,15 @@ public class WebController {
 
     // Construtor para injeção de mocked ScoreService para tests
     public WebController(ScoreService scoreService) {
-            this.scoreService = scoreService;
+        this.scoreService = scoreService;
     }
 
-    @ResponseBody
     @PostMapping("/score/reset")
-    public Score resetScore() {
+    public String resetScore(Model model) {
         scoreService.resetScore();
-        return scoreService.getScore();
+        Score score = scoreService.getScore();
+        model.addAttribute("score", score);
+        return "reset-score";
     }
 
     @ResponseBody

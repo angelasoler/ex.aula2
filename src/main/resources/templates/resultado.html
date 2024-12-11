@@ -8,6 +8,7 @@
         <br>
         Resultado: <span th:text="${saida}"/>
         <br>
+        <br>
         Score:
         <br>
         Vitorias: <span th:text="${score.vitorias}"/>
@@ -15,5 +16,9 @@
         Derrotas: <span th:text="${score.derrotas}"/>
         <br>
         Empates: <span th:text="${score.empates}"/>
+        <br>
+        <form action="/score/reset" method="post">
+            <button type="submit">Resetar Score</button>
+        </form>
     </body>
 </html>

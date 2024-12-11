@@ -11,6 +11,11 @@ public class ScoreService {
     @Autowired
     public ScoreRepository scoreRepo;
 
+    // Construtor para injeção de rpositorio para tests
+    public ScoreService(ScoreRepository scoreRepo) {
+            this.scoreRepo = scoreRepo;
+    }
+
     public Score resetScore() {
         Score score = getScore();
         score.resetScore();

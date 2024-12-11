@@ -17,6 +17,11 @@ public class WebController {
     @Autowired
     private ScoreService scoreService;
 
+    // Construtor para injeção de mocked ScoreService para tests
+    public WebController(ScoreService scoreService) {
+            this.scoreService = scoreService;
+    }
+
     @ResponseBody
     @PostMapping("/score/reset")
     public Score resetScore() {
